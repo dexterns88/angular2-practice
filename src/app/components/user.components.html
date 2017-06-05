@@ -1,0 +1,110 @@
+<div>
+  <h1>{{name}}</h1>
+
+  <p><strong>Email:</strong> {{email}}</p>
+  <p>
+    <strong>Address:</strong>
+    {{address.street}}, {{address.city}}, {{address.state}}
+  </p>
+
+  <button class="btn btn-default" (click)="toggleHobbies()">{{showHobbies ? "Hide":"Show"}}</button>
+
+  <div *ngIf="showHobbies">
+    <h3>Hoobies</h3>
+    <ol class="list-group">
+      <li class="list-group-item" *ngFor="let hobby of hobbies; let i = index">
+        {{hobby}} &nbsp; <button class="btn btn-danger" (click)="deleteHobby(i)">Delete</button>
+      </li>
+    </ol>
+
+    <form class="form-inline" (submit)="addHobby(hobby.value)">
+      <div class="form-group">
+        <label>Add hobby: </label>
+        <input class="form-control" type="text" #hobby />
+      </div>
+    </form>
+
+  </div>
+
+  <hr>
+
+
+  <div class="well">
+    <form>
+
+      <legend>Edit user info</legend>
+
+      <div class="form-group">
+        <label class="control-label">Name: </label>
+        <input class="form-control" type="text" name="name" [(ngModel)]="name" />
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Email: </label>
+        <input class="form-control" type="email" name="email" [(ngModel)]="email" />
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Street: </label>
+        <input class="form-control" type="text" name="address.street" [(ngModel)]="address.street" />
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">City: </label>
+        <input class="form-control" type="text" name="address.city" [(ngModel)]="address.city" />
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">State: </label>
+        <input class="form-control" type="text" name="address.state" [(ngModel)]="address.state" />
+      </div>
+
+    </form>
+  </div>
+
+</div>
+
+<h2>Posts:</h2>
+<div *ngFor="let post of posts">
+  <h3>{{ post.title }}</h3>
+  <p>{{ post.body }}</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
