@@ -1,6 +1,7 @@
 
 <div class="container">
   <div class="row">
+
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -17,7 +18,6 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-
             <li>
               <a routerLink="/">Home</a>
             </li>
@@ -28,7 +28,13 @@
               <a routerLink="/movie">Movie</a>
             </li>
             <li>
+              <a routerLink="/dice">Dice</a>
+            </li>
+            <li>
               <a routerLink="/login">Login</a>
+            </li>
+            <li>
+              <a routerLink="/dashboard">Dashboard</a>
             </li>
           </ul>
         </div>
@@ -38,10 +44,15 @@
   </div>
 </div>
 
+
 <div class="container">
+  <div class="row">
+    <alert></alert>
+  </div>
 
   <div class="row">
     <router-outlet></router-outlet>
   </div>
+
 
 </div>

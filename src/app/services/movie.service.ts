@@ -10,8 +10,12 @@ export class MovieService {
         console.log( 'MovieService Initialized.......' );
     }
 
-    getPosts() {
-        return this.http.get('http://djs.loc/movie')
+    getPosts(page?: number) {
+        let endpoint = 'http://djs.loc/movie';
+        if (page) {
+            endpoint += '?page=' + page;
+        }
+        return this.http.get(endpoint)
             .map(res => res.json());
     }
 }

@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PostsService} from '../services/post.service';
 
 @Component({
     moduleId: module.id,
     selector: 'user',
     templateUrl: 'user.components.html',
-    styleUrls: ['user.components.css'],
+    // styleUrls: ['user.components.css'],
     providers: [PostsService]
 })
 
-export class UserComponent  {
+export class UserComponent implements OnInit {
     name: string;
     email: string;
     address: Address;
@@ -17,7 +17,9 @@ export class UserComponent  {
     showHobbies: boolean;
     posts: Post[];
 
-    constructor(private postsService: PostsService) {
+    constructor(private postsService: PostsService) {}
+
+    ngOnInit() {
         this.name = 'Dexter';
         this.email = 'dexterns88@gmail.com';
         this.address = {
@@ -31,7 +33,6 @@ export class UserComponent  {
         this.postsService.getPosts().subscribe(posts => {
             this.posts = posts;
         });
-
     }
 
     toggleHobbies() {

@@ -1,25 +1,30 @@
 
 <h1>Welcome to movie list</h1>
 
+<section class="movie-list">
 
-<article class="movie-item" *ngFor="let movie of movies">
+  <article class="movie-item" *ngFor="let movie of movies">
 
-  <h2>{{ movie.title }}</h2>
+    <h2>{{ movie.title }}</h2>
 
-  <div class="content-body" [innerHTML]="movie.body"></div>
+    <div class="content-body" [innerHTML]="movie.body"></div>
 
-  <div>
-    <a href="{{ movie.field_youtube_url }}" target="_blank">{{ movie.title }}</a>
-  </div>
+    <div>
+      <a href="{{ movie.field_youtube_url }}" target="_blank">{{ movie.title }}</a>
+    </div>
 
-  <div>
-    <a href="{{ movie.field_imdb }}" target="_blank">On IMDB</a>
-  </div>
+    <div>
+      <a href="{{ movie.field_imdb }}" target="_blank">On IMDB</a>
+    </div>
 
-  <div class="label label-default" [innerHTML]="movie.field_stars"></div>
+    <div class="label label-default" [innerHTML]="movie.field_stars"></div>
 
-  <p>
-    Years: <time>{{ movie.field_year }}</time>
-  </p>
+    <p>
+      Years: <time>{{ movie.field_year }}</time>
+    </p>
 
-</article>
+  </article>
+
+</section>
+
+<pager (pageChange)="onPageChange($event)" [pageCurrent]="pager.current" [itemsPerPage]="pager.itemsPerPage" [pageCount]="pager.pageCount"></pager>
