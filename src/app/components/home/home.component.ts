@@ -16,6 +16,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     constructor(private userService: UserService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        // console.log( this.currentUser.current_user );
+        console.log( this.currentUser );
     }
 
     ngOnInit(): void {
@@ -33,5 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private loadAllUsers() {
         this.userService.getAll().subscribe(users => {this.users = users; });
+
+        console.log(this.users);
     }
 }

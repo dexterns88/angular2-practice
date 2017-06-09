@@ -1,7 +1,7 @@
 export class User {
-    id: number;
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
+    uid: number;
+    roles: Array<any>;
+    name: string;
+    csrf_token: string;
+    logout_token: string;
 }

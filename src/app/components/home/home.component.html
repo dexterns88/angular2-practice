@@ -3,38 +3,28 @@
 
   <div class="panel-heading">
 
-    <h2>Hi {{currentUser.firstName}}!</h2>
+    <h2>Hi {{currentUser.name}}!</h2>
 
   </div>
 
   <div class="panel-body">
 
     <p>You're logged in with Angular 2!!</p>
-    <h3>All registered users:</h3>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>Name/surname</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>
-            {{user.username}}
-          </td>
-          <td>
-            {{user.firstName}}
-            {{user.lastName}}
-          </td>
-          <td>
-            <a class="btn btn-danger" (click)="deleteUser(user.id)">Delete</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <ul class="list-group">
+      <li class="list-group-item">UID: {{ currentUser.uid }}</li>
+      <li class="list-group-item">CSRF token: {{ currentUser.csrf_token }}</li>
+      <li class="list-group-item">Logout token: {{ currentUser.logout_token }}</li>
+
+      <li class="list-group-item active">
+        <p>Role:</p>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let role of currentUser.roles">
+            {{ role }}
+          </li>
+        </ul>
+      </li>
+    </ul>
 
   </div>
 
@@ -42,4 +32,36 @@
     <a class="btn btn-default" [routerLink]="['/login']">Logout</a>
   </div>
 
+</div>
+
+<div class="panel panel-default page-users-all">
+  <div class="panel-heading">
+    <h2>All registered users:</h2>
+  </div>
+
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Username</th>
+        <th>Name/surname</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>
+          {{user.username}}
+        </td>
+        <td>
+          {{user.firstName}}
+          {{user.lastName}}
+        </td>
+        <td>
+          <a class="btn btn-danger" (click)="deleteUser(user.id)">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
