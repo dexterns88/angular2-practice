@@ -51,10 +51,7 @@ export class UserService {
 
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if ( currentUser && currentUser.csrf_token ) {
-            let headers = new Headers({
-                'Authorization': 'Basic ' + currentUser.auth,
-                'X-CSRF-Token': currentUser.csrf_token
-            });
+            let headers = new Headers({ 'Authorization': 'Basic ' + currentUser.auth });
             return new RequestOptions({ headers: headers });
         }
     }
