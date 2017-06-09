@@ -11,12 +11,18 @@ export class AuthenticationService {
     constructor(private http: Http) {}
 
     login(username: string, password: string) {
+
+        // console.log( JSON.stringify({ username: username, password: password} );
+
         return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password}))
             .map((response: Response) => {
                 // Login succesful if there's a jwt token in the response
                 let user = response.json();
                 if (user && user.token) {
                     // store user datails and jwt token in local storage to keep user logged in between page refreshes
+                    //
+                    // console.log( JSON.stringify(user) );
+
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
             });

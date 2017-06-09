@@ -43,8 +43,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
 
             // get users
             if (connection.request.url.endsWith('/api/users') && connection.request.method === RequestMethod.Get) {
-                // check for fake auth token in header and return users if valid, this security is implemented server side
-                // in a real application
+                // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: users })));
                 } else {
@@ -57,8 +56,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
 
             // get user by id
             if (connection.request.url.match(/\/api\/users\/\d+$/) && connection.request.method === RequestMethod.Get) {
-                // check for fake auth token in header and return user if valid, this security is implemented server side
-                // in a real application
+                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
                     let urlParts = connection.request.url.split('/');
@@ -100,8 +98,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
 
             // delete user
             if (connection.request.url.match(/\/api\/users\/\d+$/) && connection.request.method === RequestMethod.Delete) {
-                // check for fake auth token in header and return user if valid, this security is implemented server side
-                // in a real application
+                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
                     let urlParts = connection.request.url.split('/');
