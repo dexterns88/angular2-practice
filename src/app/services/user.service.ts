@@ -11,7 +11,7 @@ export class UserService {
     constructor(private http: Http) {}
 
     getAll() {
-        let api = RestConfig.API_ENDPOINT + RestConfig.USER_API;
+        let api = RestConfig.API_ENDPOINT + RestConfig.USERS_API;
 
         // let users = this.http.get('http://djs.loc/api/users', this.drupalAuth()).map((response: Response) => response.json());
         return this.http.get(api, this.drupalAuth())
@@ -30,8 +30,8 @@ export class UserService {
         return this.http.put('/api/users/' + user.uid, user, this.jwt()).map((response: Response) => response.json());
     }
 
-    delete( id: number ) {
-        let api = RestConfig.API_ENDPOINT + '/user/' + id + '?_format=hal_json';
+    deleteUser( id: number ) {
+        let api = RestConfig.API_ENDPOINT + RestConfig.USER_API + '/' + id + '?_format=hal_json';
         return this.http.delete(api, this.drupalAuth()).map((response: Response) => response.json());
         // return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     }
