@@ -28,7 +28,6 @@ export class AppComponent  {
 
   constructor(private authGuard: AuthGuard) {
     this.isLogged = this.authGuard.isLogged();
-    console.log( this.isLogged );
   }
 
   onSelect(hero: Hero): void {

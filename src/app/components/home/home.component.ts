@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { User } from '../../_models/index';
 import { UserService } from '../../services/index';
@@ -9,25 +9,23 @@ import { UserService } from '../../services/index';
     styleUrls: ['home.component.css']
 })
 
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
+    allUser: any;
+    allUserStatus = {
+        status: true,
+        message: ''
+    };
     bodyClasses: string = 'layout-full page-home';
 
     constructor(private userService: UserService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-        // console.log( this.currentUser.current_user );
-        console.log( this.currentUser );
     }
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.loadAllUsers();
         // $('body').addClass(this.bodyClasses);
-    }
-
-    ngOnDestroy() {
-        // $('body').removeClass(this.bodyClasses);
     }
 
     deleteUser(id: number) {
@@ -35,8 +33,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private loadAllUsers() {
-        this.userService.getAll().subscribe(users => {this.users = users; });
 
-        console.log(this.users);
+        this.userService.getAll().subscribe(allUser => {
+            this.allUser = allUser.results;
+        },
+        (error) => {
+            this.allUserStatus.status = false;
+            this.allUserStatus.message = this._statusHandler(error.status);
+        });
+    }
+
+    private _statusHandler(error: number) {
+        if ( error === 403 ) {
+            return 'You don\'t have permission to access this content';
+        }
     }
 }

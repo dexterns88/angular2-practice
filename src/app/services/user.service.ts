@@ -11,14 +11,11 @@ export class UserService {
     constructor(private http: Http) {}
 
     getAll() {
-        // return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
-
         let api = RestConfig.API_ENDPOINT + RestConfig.USER_API;
 
-        let users = this.http.get('http://djs.loc/api/users', this.drupalAuth()).map((response: Response) => response.json());
-
-        console.log( users );
-        return users;
+        // let users = this.http.get('http://djs.loc/api/users', this.drupalAuth()).map((response: Response) => response.json());
+        return this.http.get(api, this.drupalAuth())
+            .map(res => res.json());
     }
 
     getById( id: number ) {
@@ -34,7 +31,9 @@ export class UserService {
     }
 
     delete( id: number ) {
-        return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+        let api = RestConfig.API_ENDPOINT + '/user/' + id + '?_format=hal_json';
+        return this.http.delete(api, this.drupalAuth()).map((response: Response) => response.json());
+        // return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     // Private helper method
@@ -51,7 +50,11 @@ export class UserService {
 
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if ( currentUser && currentUser.csrf_token ) {
-            let headers = new Headers({ 'Authorization': 'Basic ' + currentUser.auth });
+            let headers = new Headers({
+                'Authorization': 'Basic ' + currentUser.auth,
+                'Content-Type': 'application/hal+json'
+            });
+            // let headers = new Headers({ 'Authorization': 'Basic YWRtaW46eHg=' });
             return new RequestOptions({ headers: headers });
         }
     }

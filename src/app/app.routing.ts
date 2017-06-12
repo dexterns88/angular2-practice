@@ -8,6 +8,7 @@ import {DiceComponent} from './components/dice/dice.component';
 
 import {HomeComponent} from './components/home/home.component';
 import {LoginComponent} from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/index';
 import { AuthGuard } from './_guards/index';
 import { PageNotFoundComponent } from './components/error/PageNotFoundComponent';
@@ -41,7 +42,7 @@ const appRoutes: Routes = [
         component: RegisterComponent
     },
     {
-        path: 'dashboard',
+        path: 'home',
         component: HomeComponent,
         canActivate: [AuthGuard]
     },

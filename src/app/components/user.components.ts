@@ -30,9 +30,9 @@ export class UserComponent implements OnInit {
         this.hobbies = ['Music', 'Movies', 'Sports'];
         this.showHobbies = false;
 
-        this.postsService.getPosts().subscribe(posts => {
-            this.posts = posts;
-        });
+        // this.postsService.getPosts().subscribe(posts => {
+        //     this.posts = posts;
+        // });
     }
 
     toggleHobbies() {

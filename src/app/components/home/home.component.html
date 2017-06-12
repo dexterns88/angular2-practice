@@ -1,4 +1,4 @@
-
+{{ users.test }}
 <div class="panel panel-default page-users">
 
   <div class="panel-heading">
@@ -40,28 +40,35 @@
   </div>
 
   <div class="panel-body">
-    <table class="table">
+    <table *ngIf="allUserStatus.status === true; else elseBlock" class="table">
       <thead>
       <tr>
+        <th>uid</th>
         <th>Username</th>
-        <th>Name/surname</th>
+        <th>Language</th>
+        <th>Status</th>
+        <th>Last login</th>
         <th>Action</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngFor="let user of allUser | slice:1">
+        <td>{{ user.uid }}</td>
+        <td [innerHTML]="user.name"></td>
+        <td>{{ user.preferred_langcode }}</td>
         <td>
-          {{user.username}}
+          <span *ngIf="user.status == 1; else elseBlock">Active</span>
+          <ng-template #elseBlock>blocked</ng-template>
         </td>
         <td>
-          {{user.firstName}}
-          {{user.lastName}}
+          {{ user.login * 1000 | date }}
         </td>
         <td>
-          <a class="btn btn-danger" (click)="deleteUser(user.id)">Delete</a>
+          <a *ngIf="user.uid != 1" class="btn btn-danger" (click)="deleteUser(user.uid)">Delete</a>
         </td>
       </tr>
       </tbody>
     </table>
+    <ng-template #elseBlock><div class="alert alert-warning">{{ allUserStatus.message }}</div></ng-template>
   </div>
 </div>
