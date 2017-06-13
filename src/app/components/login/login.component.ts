@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(
                 data => {
+                    this.alertService.success('Welcome to app: ' + this.model.username, true);
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {

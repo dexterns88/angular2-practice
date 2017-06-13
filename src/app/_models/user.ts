@@ -4,4 +4,7 @@ export class User {
     name: string;
     csrf_token: string;
     logout_token: string;
+    username: string;
+    email: string;
+    password: string;
 }

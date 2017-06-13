@@ -22,8 +22,24 @@ export class UserService {
         return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
+    // @TODO here working in progress
     create( user: User ) {
-        return this.http.post('/api/users', user, this.jwt()).map((response: Response) => response.json());
+        // Reformat data into drupal object
+        let u = {
+            'name': {
+                'value': user.username
+            },
+            'mail': {
+                'value': user.email
+            },
+            'pass': {
+                'value': user.password
+            }
+        };
+
+        let api = RestConfig.API_ENDPOINT + RestConfig.USER_API + '/register?_format=json';
+        return this.http.post(api, u, this.headAttach()).map((response: Response) => response.json());
+        // return this.http.post('/api/users', user, this.jwt()).map((response: Response) => response.json());
     }
 
     update( user: User ) {
@@ -44,6 +60,13 @@ export class UserService {
             let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.csrf_token });
             return new RequestOptions({ headers: headers });
         }
+    }
+
+    private headAttach() {
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+        return new RequestOptions({ headers: headers });
     }
 
     private drupalAuth() {

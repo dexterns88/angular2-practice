@@ -24,11 +24,23 @@ export class RegisterComponent {
             .subscribe(
                 data => {
                     // set success message and pass true parameter to persist the message after redirecting to the login page
-                    this.alertService.success('Registration sucessful', true);
+                    this.alertService.success('Registration successful', true);
                     this.router.navigate(['/login']);
                 },
                 error => {
-                    this.alertService.error(error);
+
+                    let msg = JSON.parse(error._body).message;
+                    let tpl = '<ul>';
+                    msg = msg.split('\n');
+
+                    for (let i = 1; i < msg.length; i++) {
+                        if ( msg[i].length > 0 ) {
+                            tpl += '<li>' + msg[i] + '</li>';
+                        }
+                    }
+                    tpl += '</ul>';
+
+                    this.alertService.error(tpl);
                     this.loading = false;
                 }
             );
