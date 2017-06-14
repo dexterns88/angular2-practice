@@ -2,14 +2,12 @@
 <div class="panel panel-default page-users">
 
   <div class="panel-heading">
-
     <h2>Hi {{currentUser.name}}!</h2>
-
   </div>
 
   <div class="panel-body">
 
-    <p>You're logged in with Angular 2!!</p>
+    <p>Your information</p>
 
     <ul class="list-group">
       <li class="list-group-item">UID: {{ currentUser.uid }}</li>
@@ -29,6 +27,7 @@
   </div>
 
   <div class="panel-footer">
+    <a [routerLink]="['/user/edit/' + currentUser.uid]" class='btn btn-default'>Edit user</a>
     <a class="btn btn-default" [routerLink]="['/login']">Logout</a>
   </div>
 
@@ -61,10 +60,15 @@
           <ng-template #elseBlock>blocked</ng-template>
         </td>
         <td>
-          {{ user.login * 1000 | date }}
+          <span *ngIf="user.login != 0; else else_user_login">
+            {{ user.login * 1000 | date }}
+          </span>
+          <ng-template #else_user_login>Never logged in</ng-template>
         </td>
         <td>
-          <a *ngIf="user.uid != 1" class="btn btn-danger" (click)="deleteUser(user.uid)">Delete</a>
+            <a [routerLink]="['/user/edit/' + user.uid ]" class="btn btn-default">Edit user</a>
+
+            <a *ngIf="user.uid != 1" class="btn btn-danger" (click)="deleteUser(user.uid)">Delete</a>
         </td>
       </tr>
       </tbody>

@@ -8,10 +8,10 @@ import {DiceComponent} from './components/dice/dice.component';
 
 import {HomeComponent} from './components/home/home.component';
 import {LoginComponent} from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/index';
 import { AuthGuard } from './_guards/index';
 import { PageNotFoundComponent } from './components/error/PageNotFoundComponent';
+import { EditComponent } from './components/register/edit.component';
 
 const appRoutes: Routes = [
     {
@@ -45,6 +45,10 @@ const appRoutes: Routes = [
         path: 'home',
         component: HomeComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'user/edit/:id',
+        component: EditComponent,
     },
     {
         path: '**',

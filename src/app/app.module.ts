@@ -24,7 +24,9 @@ import { HomeComponent } from './components/home/index';
 import { LoginComponent } from './components/login/index';
 import { RegisterComponent } from './components/register/index';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { EditComponent } from './components/register/edit.component';
 import { PageNotFoundComponent } from './components/error/PageNotFoundComponent';
+
 
 import { routing } from './app.routing';
 
@@ -43,6 +45,7 @@ import { routing } from './app.routing';
     AlertComponent,
     HomeComponent,
     LoginComponent,
+    EditComponent,
     RegisterComponent,
     PageNotFoundComponent,
     DashboardComponent

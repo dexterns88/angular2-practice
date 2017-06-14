@@ -1,5 +1,6 @@
 export class User {
     uid: number;
+    uuid: string;
     roles: Array<any>;
     name: string;
     csrf_token: string;

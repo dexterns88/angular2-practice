@@ -19,16 +19,16 @@ export class UserService {
     }
 
     getById( id: number ) {
-        return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+        let api = RestConfig.API_ENDPOINT + RestConfig.USER_API + '/' + id + '?_format=json';
+
+        return this.http.get(api, this.drupalAuth()).map((response: Response) => response.json());
+        // return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
-    // @TODO here working in progress
     create( user: User ) {
         // Reformat data into drupal object
         let u = {
-            'name': {
-                'value': user.username
-            },
+            'name': user.username,
             'mail': {
                 'value': user.email
             },
@@ -39,11 +39,32 @@ export class UserService {
 
         let api = RestConfig.API_ENDPOINT + RestConfig.USER_API + '/register?_format=json';
         return this.http.post(api, u, this.headAttach()).map((response: Response) => response.json());
-        // return this.http.post('/api/users', user, this.jwt()).map((response: Response) => response.json());
     }
 
     update( user: User ) {
-        return this.http.put('/api/users/' + user.uid, user, this.jwt()).map((response: Response) => response.json());
+        // Format data to drupal object
+        let u = {
+            'pass': [{
+                'existing': user[0].currentpass
+            }],
+            'name': {
+                'value': user[0].name
+            },
+            'mail': {
+                'value': user[0].email
+            }
+        };
+
+        if ( user[0].newpass !== undefined ) {
+            if ( user[0].newpass.length !== 0 ) {
+                u['pass'][0]['value'] = 'xx';
+            }
+        }
+
+        // u = JSON.stringify(u);
+
+        let api = RestConfig.API_ENDPOINT + RestConfig.USER_API + '/' + user[0].uid + '?_format=json';
+        return this.http.patch(api, u, this.drupalAuthJson()).map((response: Response) => response.json());
     }
 
     deleteUser( id: number ) {
@@ -67,6 +88,17 @@ export class UserService {
             'Content-Type': 'application/json'
         });
         return new RequestOptions({ headers: headers });
+    }
+
+    private drupalAuthJson() {
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if ( currentUser && currentUser.csrf_token ) {
+            let headers = new Headers({
+                'Authorization': 'Basic ' + currentUser.auth,
+                'Content-Type': 'application/json'
+            });
+            return new RequestOptions({ headers: headers });
+        }
     }
 
     private drupalAuth() {
